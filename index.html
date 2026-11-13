@@ -3,51 +3,42 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AwasBey Masaüstü Stüdyo & Paketleyici</title>
-    <!-- PWA Masaüstü Uygulaması Desteği -->
-    <meta name="theme-color" content="#0f172a">
-    <link id="manifest-link" rel="manifest" href="">
+    <title>El Yapımı Masaüstü Dosya Stüdyosu</title>
     <style>
         :root {
-            --bg-main: #0b0f19;
-            --bg-panel: #131a2a;
-            --bg-card: #1c253b;
-            --accent: #3b82f6;
-            --accent-hover: #2563eb;
-            --text-main: #f8fafc;
-            --text-muted: #94a3b8;
-            --border: #2e3a59;
+            --bg: #121214;
+            --panel: #1a1a1e;
+            --card: #222228;
+            --accent: #6366f1;
+            --accent-hover: #4f46e5;
+            --text: #f4f4f5;
+            --text-muted: #a1a1aa;
+            --border: #27272a;
             --success: #10b981;
             --danger: #ef4444;
         }
 
-        /* Tema Modları */
-        body.mode-cyber {
-            --bg-main: #090314;
-            --bg-panel: #14082b;
-            --bg-card: #1f0d42;
-            --accent: #d946ef;
-            --accent-hover: #c026d3;
-            --border: #4c1d95;
+        /* El Yapımı / Pastel Tema Modu */
+        body.theme-retro {
+            --bg: #1e1b18;
+            --panel: #292522;
+            --card: #3f3832;
+            --accent: #d97706;
+            --accent-hover: #b45309;
+            --text: #fef3c7;
+            --text-muted: #d6d3d1;
+            --border: #57534e;
         }
 
-        body.mode-matrix {
-            --bg-main: #020a04;
-            --bg-panel: #07190c;
-            --bg-card: #0c2914;
-            --accent: #22c55e;
-            --accent-hover: #16a34a;
-            --border: #14532d;
-        }
-
-        body.mode-light {
-            --bg-main: #f1f5f9;
-            --bg-panel: #ffffff;
-            --bg-card: #e2e8f0;
-            --accent: #2563eb;
-            --accent-hover: #1d4ed8;
-            --text-main: #0f172a;
-            --text-muted: #475569;
+        /* Aydınlık Defter Modu */
+        body.theme-light {
+            --bg: #f8fafc;
+            --panel: #ffffff;
+            --card: #f1f5f9;
+            --accent: #0284c7;
+            --accent-hover: #0369a1;
+            --text: #0f172a;
+            --text-muted: #64748b;
             --border: #cbd5e1;
         }
 
@@ -55,537 +46,443 @@
             box-sizing: border-box;
             margin: 0;
             padding: 0;
-            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            font-family: 'Segoe UI', system-ui, sans-serif;
         }
 
         body {
-            background-color: var(--bg-main);
-            color: var(--text-main);
+            background-color: var(--bg);
+            color: var(--text);
             height: 100vh;
             display: flex;
             flex-direction: column;
             overflow: hidden;
-            transition: all 0.3s ease;
+            transition: 0.2s;
         }
 
-        /* Üst Bar (Masaüstü Uygulama Havası) */
         header {
-            background-color: var(--bg-panel);
+            background-color: var(--panel);
             border-bottom: 1px solid var(--border);
-            padding: 12px 24px;
+            padding: 14px 24px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            user-select: none;
         }
 
-        .brand {
+        .logo {
+            font-size: 1.1rem;
+            font-weight: 700;
             display: flex;
             align-items: center;
-            gap: 12px;
-            font-weight: 700;
-            font-size: 1.2rem;
-            letter-spacing: 0.5px;
+            gap: 8px;
         }
 
-        .brand-badge {
-            background: var(--accent);
-            color: #fff;
-            padding: 3px 8px;
-            border-radius: 6px;
-            font-size: 0.75rem;
-            text-transform: uppercase;
-        }
-
-        .top-controls {
+        .controls {
             display: flex;
             gap: 10px;
             align-items: center;
         }
 
         select, button {
-            background-color: var(--bg-card);
-            color: var(--text-main);
+            background-color: var(--card);
+            color: var(--text);
             border: 1px solid var(--border);
             padding: 8px 14px;
             border-radius: 8px;
             cursor: pointer;
             font-size: 0.9rem;
             font-weight: 500;
-            transition: 0.2s;
         }
 
         button:hover, select:hover {
             border-color: var(--accent);
         }
 
-        .btn-primary {
+        .btn-main {
             background-color: var(--accent);
             color: #fff;
             border: none;
         }
 
-        .btn-primary:hover {
+        .btn-main:hover {
             background-color: var(--accent-hover);
         }
 
-        .btn-success {
-            background-color: var(--success);
-            color: #fff;
-            border: none;
-        }
-
-        /* Ana Çalışma Alanı */
-        .workspace {
+        .container {
             display: flex;
             flex: 1;
             overflow: hidden;
         }
 
-        /* Sol Menü (Modlar) */
-        .sidebar {
-            width: 240px;
-            background-color: var(--bg-panel);
+        /* Sol Menü */
+        aside {
+            width: 250px;
+            background-color: var(--panel);
             border-right: 1px solid var(--border);
-            padding: 20px 14px;
+            padding: 20px;
             display: flex;
             flex-direction: column;
-            gap: 8px;
+            gap: 10px;
         }
 
-        .sidebar-title {
+        .menu-title {
             font-size: 0.75rem;
             text-transform: uppercase;
             color: var(--text-muted);
-            margin-bottom: 6px;
-            padding-left: 10px;
             letter-spacing: 1px;
+            margin-bottom: 6px;
         }
 
-        .mode-btn {
+        .tab-btn {
             text-align: left;
-            padding: 12px 14px;
-            border-radius: 10px;
+            padding: 12px;
+            border-radius: 8px;
             border: 1px solid transparent;
             background: transparent;
-            display: flex;
-            align-items: center;
-            gap: 10px;
+            color: var(--text);
             font-size: 0.95rem;
+            cursor: pointer;
         }
 
-        .mode-btn.active {
-            background-color: var(--bg-card);
+        .tab-btn.active {
+            background-color: var(--card);
             border-color: var(--accent);
-            color: var(--accent);
             font-weight: 600;
         }
 
-        .stats-box {
+        .info-card {
             margin-top: auto;
-            background-color: var(--bg-card);
-            padding: 14px;
-            border-radius: 10px;
+            background-color: var(--card);
+            padding: 12px;
+            border-radius: 8px;
             font-size: 0.8rem;
             color: var(--text-muted);
             border: 1px solid var(--border);
         }
 
-        .stats-box div {
-            margin-bottom: 6px;
-            display: flex;
-            justify-content: space-between;
-        }
-
-        .stats-box span {
-            color: var(--text-main);
-            font-weight: 600;
-        }
-
-        /* Orta Alan (Sürükle Bırak & Önizleme) */
-        .main-stage {
+        /* Ana İçerik */
+        main {
             flex: 1;
             padding: 24px;
             display: flex;
             flex-direction: column;
-            gap: 18px;
+            gap: 16px;
             overflow-y: auto;
         }
 
-        .drop-zone {
+        .drop-box {
             border: 2px dashed var(--border);
-            background-color: var(--bg-panel);
-            border-radius: 16px;
-            padding: 36px;
+            background-color: var(--panel);
+            border-radius: 12px;
+            padding: 30px;
             text-align: center;
             cursor: pointer;
-            transition: 0.25s;
-            position: relative;
+            transition: 0.2s;
         }
 
-        .drop-zone:hover, .drop-zone.dragover {
+        .drop-box:hover {
             border-color: var(--accent);
-            background-color: var(--bg-card);
+            background-color: var(--card);
         }
 
-        .drop-zone h2 {
-            font-size: 1.3rem;
-            margin-bottom: 8px;
-        }
-
-        .drop-zone p {
-            color: var(--text-muted);
-            font-size: 0.9rem;
-        }
-
-        /* Önizleme & Editör Alanı */
-        .preview-container {
+        .workspace-panel {
             flex: 1;
-            background-color: var(--bg-panel);
+            background-color: var(--panel);
             border: 1px solid var(--border);
-            border-radius: 16px;
-            padding: 20px;
+            border-radius: 12px;
+            padding: 16px;
             display: flex;
             flex-direction: column;
-            min-height: 280px;
-            position: relative;
+            min-height: 250px;
         }
 
-        .preview-header {
+        .workspace-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 14px;
-            padding-bottom: 10px;
+            margin-bottom: 12px;
+            padding-bottom: 8px;
             border-bottom: 1px solid var(--border);
+            font-size: 0.9rem;
+            font-weight: 600;
         }
 
-        .preview-content {
+        .preview-area {
             flex: 1;
             display: flex;
             align-items: center;
             justify-content: center;
             overflow: auto;
-            width: 100%;
+            border-radius: 8px;
+            background: var(--bg);
+            padding: 10px;
         }
 
-        .preview-content img, .preview-content video {
-            max-width: 100%;
-            max-height: 360px;
-            border-radius: 10px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.4);
-        }
-
-        .preview-content audio {
-            width: 80%;
-        }
-
-        #codeEditor {
+        textarea {
             width: 100%;
             height: 100%;
-            min-height: 260px;
-            background-color: var(--bg-main);
-            color: var(--text-main);
-            border: 1px solid var(--border);
-            border-radius: 10px;
-            padding: 14px;
-            font-family: 'Consolas', 'Courier New', monospace;
+            min-height: 220px;
+            background: transparent;
+            color: var(--text);
+            border: none;
+            outline: none;
+            font-family: monospace;
             font-size: 0.95rem;
             resize: none;
-            outline: none;
         }
 
-        /* Alt Kontrol Paneli (İsim Yazma ve Masaüstüne Ekleme) */
-        .bottom-bar {
-            background-color: var(--bg-panel);
+        img, video {
+            max-width: 100%;
+            max-height: 300px;
+            border-radius: 6px;
+        }
+
+        audio {
+            width: 100%;
+        }
+
+        /* Alt Kaydetme Çubuğu */
+        footer {
+            background-color: var(--panel);
             border-top: 1px solid var(--border);
             padding: 16px 24px;
             display: flex;
-            flex-wrap: wrap;
             gap: 14px;
             align-items: center;
             justify-content: space-between;
+            flex-wrap: wrap;
         }
 
-        .file-naming {
+        .name-group {
             display: flex;
             align-items: center;
             gap: 10px;
             flex: 1;
-            min-width: 280px;
+            min-width: 300px;
         }
 
-        .file-naming label {
-            font-weight: 600;
-            font-size: 0.9rem;
-            white-space: nowrap;
-        }
-
-        .file-naming input {
+        .name-group input {
             flex: 1;
-            background-color: var(--bg-card);
+            background-color: var(--card);
             border: 1px solid var(--border);
-            color: var(--text-main);
+            color: var(--text);
             padding: 10px 14px;
             border-radius: 8px;
             font-size: 0.95rem;
             outline: none;
         }
 
-        .file-naming input:focus {
+        .name-group input:focus {
             border-color: var(--accent);
         }
 
-        .action-buttons {
-            display: flex;
-            gap: 10px;
-            flex-wrap: wrap;
-        }
-
-        /* Bildirim (Toast) */
         #toast {
             position: fixed;
-            bottom: 85px;
+            bottom: 80px;
             right: 24px;
             background-color: var(--accent);
             color: #fff;
-            padding: 12px 20px;
-            border-radius: 10px;
+            padding: 10px 18px;
+            border-radius: 8px;
             font-weight: 600;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
             opacity: 0;
-            transform: translateY(20px);
             transition: 0.3s;
             pointer-events: none;
-            z-index: 999;
         }
 
         #toast.show {
             opacity: 1;
-            transform: translateY(0);
-        }
-
-        /* Resim Filtre Araç Çubuğu */
-        .filter-tools {
-            display: none;
-            gap: 8px;
-            margin-top: 10px;
-            flex-wrap: wrap;
         }
     </style>
 </head>
 <body>
 
     <header>
-        <div class="brand">
-            <span>⚡ AwasBey Masaüstü Stüdyo</span>
-            <span class="brand-badge">PRO v2.0</span>
+        <div class="logo">
+            <span>🛠️</span>
+            <span>Özel Masaüstü Stüdyo</span>
         </div>
-        <div class="top-controls">
-            <select id="themeSelect" onchange="changeTheme(this.value)">
-                <option value="default">🌙 Gece Modu</option>
-                <option value="cyber">🔮 Cyberpunk Modu</option>
-                <option value="matrix">💻 Hacker / Matrix Modu</option>
-                <option value="light">☀️ Aydınlık Mod</option>
+        <div class="controls">
+            <select onchange="changeTheme(this.value)">
+                <option value="dark">🌙 Koyu Mod</option>
+                <option value="retro">☕ El Yapımı / Kahve</option>
+                <option value="light">☀️ Kağıt / Aydınlık</option>
             </select>
-            <button id="installAppBtn" class="btn-primary" onclick="installPWA()">🖥️ Siteyi Masaüstüne Kur</button>
         </div>
     </header>
 
-    <div class="workspace">
-        <!-- Sol Modlar Menüsü -->
-        <aside class="sidebar">
-            <div class="sidebar-title">Çalışma Modları</div>
-            <button class="mode-btn active" onclick="setMode('all', this)">📁 Tüm Dosyalar Modu</button>
-            <button class="mode-btn" onclick="setMode('code', this)">💻 Kod & Metin Editörü</button>
-            <button class="mode-btn" onclick="setMode('image', this)">🖼️ Resim & Efekt Stüdyosu</button>
-            <button class="mode-btn" onclick="setMode('media', this)">🎵 Müzik & Video Oynatıcı</button>
-            <button class="mode-btn" onclick="setMode('shortcut', this)">🔗 Masaüstü Kısayol Üretici</button>
+    <div class="container">
+        <aside>
+            <div class="menu-title">İşlem Modları</div>
+            <button class="tab-btn active" onclick="setMode('all', this)">📂 Tüm Dosyalar</button>
+            <button class="tab-btn" onclick="setMode('code', this)">💻 Kod / Metin Yaz</button>
+            <button class="tab-btn" onclick="setMode('media', this)">🎵 Müzik / Video / Resim</button>
 
-            <div class="stats-box">
-                <div>Dosya Türü: <span id="statType">-</span></div>
-                <div>Boyut: <span id="statSize">0 KB</span></div>
-                <div>Durum: <span id="statStatus">Hazır</span></div>
+            <div class="info-card">
+                <div>Seçilen Boyut: <span id="fileSize">0 KB</span></div>
+                <div>Durum: <span id="fileStatus">Hazır</span></div>
             </div>
         </aside>
 
-        <!-- Orta Alan -->
-        <main class="main-stage">
-            <div class="drop-zone" id="dropZone" onclick="document.getElementById('fileInput').click()">
-                <h2 id="dropTitle">📂 Bilgisayarından veya Galerinden Dosya Seç</h2>
-                <p id="dropDesc">Kod, Resim, Müzik, Video veya herhangi bir dosyayı buraya sürükle ya da tıkla</p>
-                <input type="file" id="fileInput" hidden onchange="handleFileSelect(event)">
+        <main>
+            <div class="drop-box" onclick="document.getElementById('fileInput').click()">
+                <h3 id="dropTitle">Bilgisayarından veya Galerinden Dosya Seç</h3>
+                <p style="color: var(--text-muted); font-size: 0.85rem; margin-top: 4px;">Tıkla veya sürükle bırak</p>
+                <input type="file" id="fileInput" hidden onchange="fileLoaded(event)">
             </div>
 
-            <div class="preview-container">
-                <div class="preview-header">
-                    <span id="previewTitle" style="font-weight: 600;">Önizleme & Çalışma Alanı</span>
-                    <div style="display:flex; gap:8px;">
-                        <button onclick="createNewCodeFile()">+ Sıfırdan Kod Yaz</button>
-                        <button onclick="clearWorkspace()" style="color: var(--danger);">Temizle</button>
-                    </div>
+            <div class="workspace-panel">
+                <div class="workspace-header">
+                    <span id="panelTitle">Çalışma & Önizleme Alanı</span>
+                    <button onclick="newBlankCode()" style="padding: 4px 10px; font-size: 0.8rem;">+ Boş Kod Sayfası</button>
                 </div>
-
-                <div class="preview-content" id="previewContent">
-                    <p style="color: var(--text-muted);">Henüz bir dosya seçilmedi. Yukarıdan dosya seçebilir veya "Sıfırdan Kod Yaz" butonuna basabilirsin.</p>
-                </div>
-
-                <!-- Resim Modu Ekstra Efektler -->
-                <div class="filter-tools" id="imageFilters">
-                    <button onclick="applyFilter('none')">Normal</button>
-                    <button onclick="applyFilter('grayscale(100%)')">Siyah Beyaz</button>
-                    <button onclick="applyFilter('sepia(80%)')">Nostalji (Sepya)</button>
-                    <button onclick="applyFilter('contrast(150%)')">Yüksek Kontrast</button>
-                    <button onclick="applyFilter('invert(100%)')">Negatif</button>
+                <div class="preview-area" id="previewArea">
+                    <span style="color: var(--text-muted);">Henüz bir dosya seçilmedi veya içerik oluşturulmadı.</span>
                 </div>
             </div>
         </main>
     </div>
 
-    <!-- Alt Bar: İsim Yazma ve Masaüstüne Kaydetme -->
-    <footer class="bottom-bar">
-        <div class="file-naming">
-            <label for="fileNameInput">📝 Dosya Adı:</label>
-            <input type="text" id="fileNameInput" placeholder="Örn: benim-projem.html veya muzik.mp3">
+    <footer>
+        <div class="name-group">
+            <label style="font-weight: 600; font-size: 0.9rem;">Dosya Adı:</label>
+            <input type="text" id="fileNameInput" placeholder="dosya_adi.html veya resim.png">
         </div>
-
-        <div class="action-buttons">
-            <button onclick="copyBase64()">📋 Base64 Kopyala</button>
-            <button onclick="exportDesktopShortcut()">🔗 Masaüstü Kısayolu (.url) İndir</button>
-            <button class="btn-success" onclick="saveToDesktop()">💾 Bilgisayara / Masaüstüne Kaydet</button>
+        <div style="display: flex; gap: 10px;">
+            <button onclick="downloadFile()" class="btn-main" style="padding: 10px 20px;">💾 Masaüstüne / Bilgisayara Kaydet</button>
         </div>
     </footer>
 
-    <div id="toast">İşlem Başarılı!</div>
+    <div id="toast">İşlem başarılı!</div>
 
     <script>
-        let currentFile = null;
-        let currentMode = 'all';
-        let currentDataURL = null;
-        let activeImageFilter = 'none';
-        let deferredPrompt = null;
+        let activeFile = null;
+        let fileDataURL = null;
 
-        // Dinamik PWA Manifest (Siteyi Masaüstüne Uygulama Olarak Kurmak İçin)
-        const manifest = {
-            name: "AwasBey Masaüstü Stüdyo",
-            short_name: "AwasBey Studio",
-            start_url: ".",
-            display: "standalone",
-            background_color: "#0b0f19",
-            theme_color: "#3b82f6",
-            icons: [{
-                src: "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%233b82f6'/><text x='50' y='68' font-size='55' text-anchor='middle' fill='white'>⚡</text></svg>",
-                sizes: "192x192",
-                type: "image/svg+xml"
-            }]
-        };
-        const manifestBlob = new Blob([JSON.stringify(manifest)], {type: 'application/json'});
-        document.getElementById('manifest-link').setAttribute('href', URL.createObjectURL(manifestBlob));
-
-        window.addEventListener('beforeinstallprompt', (e) => {
-            e.preventDefault();
-            deferredPrompt = e;
-        });
-
-        function installPWA() {
-            if (deferredPrompt) {
-                deferredPrompt.prompt();
-                deferredPrompt.userChoice.then(() => { deferredPrompt = null; });
-            } else {
-                showToast("Tarayıcı adres çubuğundaki 'Yükle' ikonuna veya Menü > Masaüstüne Ekle'ye tıklayabilirsin!");
-            }
-        }
-
-        // Tema Değiştirme
         function changeTheme(theme) {
-            document.body.className = theme === 'default' ? '' : 'mode-' + theme;
-            showToast("Tema değiştirildi!");
+            document.body.className = '';
+            if (theme !== 'dark') document.body.classList.add('theme-' + theme);
+            showToast("Tema değiştirildi");
         }
 
-        // Çalışma Modları
         function setMode(mode, btn) {
-            currentMode = mode;
-            document.querySelectorAll('.mode-btn').forEach(b => b.classList.remove('active'));
+            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
             btn.classList.add('active');
-
             const input = document.getElementById('fileInput');
-            const title = document.getElementById('dropTitle');
-            const desc = document.getElementById('dropDesc');
-
-            if (mode === 'all') {
-                input.removeAttribute('accept');
-                title.innerText = "📂 Tüm Dosyalar Modu";
-                desc.innerText = "Kod, resim, müzik, video veya herhangi bir dosyayı seç";
-            } else if (mode === 'code') {
-                input.setAttribute('accept', '.html,.css,.js,.py,.json,.txt,.md,.xml,.csv');
-                title.innerText = "💻 Kod & Metin Modu";
-                desc.innerText = "HTML, JS, Python, CSS veya TXT dosyası seç ya da aşağıda düzenle";
-                if (!currentFile) createNewCodeFile();
-            } else if (mode === 'image') {
-                input.setAttribute('accept', 'image/*');
-                title.innerText = "🖼️ Resim & Efekt Stüdyosu";
-                desc.innerText = "Galerinden bir resim seç, filtre uygula ve yeni isimle masaüstüne kaydet";
+            if (mode === 'code') {
+                input.setAttribute('accept', '.html,.js,.css,.txt,.json,.md');
+                newBlankCode();
             } else if (mode === 'media') {
-                input.setAttribute('accept', 'audio/*,video/*');
-                title.innerText = "🎵 Müzik & Video Modu";
-                desc.innerText = "MP3, WAV, MP4 veya WebM dosyası seç, oynat ve kaydet";
-            } else if (mode === 'shortcut') {
-                title.innerText = "🔗 Masaüstü Kısayol Üretici";
-                desc.innerText = "Aşağıdaki kutuya dosya adı yazıp 'Masaüstü Kısayolu (.url) İndir' butonuna bas";
-                document.getElementById('fileNameInput').value = "AwasBey-Site";
+                input.setAttribute('accept', 'image/*,audio/*,video/*');
+            } else {
+                input.removeAttribute('accept');
             }
         }
 
-        // Sürükle & Bırak
-        const dropZone = document.getElementById('dropZone');
-        dropZone.addEventListener('dragover', (e) => {
-            e.preventDefault();
-            dropZone.classList.add('dragover');
-        });
-        dropZone.addEventListener('dragleave', () => dropZone.classList.remove('dragover'));
-        dropZone.addEventListener('drop', (e) => {
-            e.preventDefault();
-            dropZone.classList.remove('dragover');
-            if (e.dataTransfer.files.length) {
-                processFile(e.dataTransfer.files[0]);
-            }
-        });
-
-        function handleFileSelect(event) {
-            if (event.target.files.length) {
-                processFile(event.target.files[0]);
-            }
-        }
-
-        function processFile(file) {
-            currentFile = file;
+        function fileLoaded(e) {
+            if (!e.target.files.length) return;
+            const file = e.target.files[0];
+            activeFile = file;
             document.getElementById('fileNameInput').value = file.name;
-            document.getElementById('statType').innerText = file.type || "Bilinmeyen";
-            document.getElementById('statSize').innerText = (file.size / 1024).toFixed(1) + " KB";
-            document.getElementById('statStatus').innerText = "Yüklendi";
+            document.getElementById('fileSize').innerText = (file.size / 1024).toFixed(1) + " KB";
+            document.getElementById('fileStatus').innerText = "Yüklendi";
 
-            const preview = document.getElementById('previewContent');
-            const filterTools = document.getElementById('imageFilters');
-            filterTools.style.display = 'none';
-            preview.innerHTML = '';
+            const area = document.getElementById('previewArea');
+            area.innerHTML = '';
 
             const reader = new FileReader();
 
-            // Kod / Metin Dosyası Kontrolü
-            if (file.type.startsWith('text/') || /\.(html|js|css|py|json|md|txt|xml|csv)$/i.test(file.name)) {
-                reader.onload = (e) => {
-                    const textarea = document.createElement('textarea');
-                    textarea.id = 'codeEditor';
-                    textarea.value = e.target.result;
-                    preview.appendChild(textarea);
+            if (file.type.startsWith('text/') || /\.(html|js|css|txt|json|md|py)$/i.test(file.name)) {
+                reader.onload = (evt) => {
+                    area.innerHTML = `<textarea id="codeText">${evt.target.result}</textarea>`;
                 };
                 reader.readAsText(file);
-            } 
-            // Resim Dosyası
-            else if (file.type.startsWith('image/')) {
-                reader.onload = (e) => {
-                    currentDataURL = e.target.result;
-                    const img = document.createElement('img');
-                    img.id = 'previewImg';
-                    img.src = currentDataURL;
-                    preview.app
+            } else if (file.type.startsWith('image/')) {
+                reader.onload = (evt) => {
+                    fileDataURL = evt.target.result;
+                    area.innerHTML = `<img src="${fileDataURL}">`;
+                };
+                reader.readAsDataURL(file);
+            } else if (file.type.startsWith('audio/')) {
+                reader.onload = (evt) => {
+                    fileDataURL = evt.target.result;
+                    area.innerHTML = `<audio controls src="${fileDataURL}"></audio>`;
+                };
+                reader.readAsDataURL(file);
+            } else if (file.type.startsWith('video/')) {
+                reader.onload = (evt) => {
+                    fileDataURL = evt.target.result;
+                    area.innerHTML = `<video controls src="${fileDataURL}"></video>`;
+                };
+                reader.readAsDataURL(file);
+            } else {
+                reader.onload = (evt) => {
+                    fileDataURL = evt.target.result;
+                    area.innerHTML = `<div style="text-align:center;"><h3>📦 ${file.name}</h3><p style="color:var(--text-muted); margin-top:6px;">Dosya paketlenmeye hazır!</p></div>`;
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+
+        function newBlankCode() {
+            activeFile = null;
+            document.getElementById('fileNameInput').value = "proje.html";
+            document.getElementById('fileStatus').innerText = "Kod Yazılıyor";
+            document.getElementById('previewArea').innerHTML = `<textarea id="codeText"><!DOCTYPE html>
+<html>
+<head><meta charset="utf-8"><title>Sayfam</title></head>
+<body>
+    <h1>Merhaba Dünya!</h1>
+</body>
+</html></textarea>`;
+        }
+
+        async function downloadFile() {
+            const name = document.getElementById('fileNameInput').value.trim() || "dosya.bin";
+            const textarea = document.getElementById('codeText');
+            let blob = null;
+
+            if (textarea) {
+                blob = new Blob([textarea.value], { type: 'text/plain;charset=utf-8' });
+            } else if (activeFile) {
+                blob = activeFile;
+            } else {
+                showToast("Önce bir dosya seçmelisin!");
+                return;
+            }
+
+            // Doğrudan Masaüstüne / Klasöre Kaydetme Penceresi
+            if (window.showSaveFilePicker) {
+                try {
+                    const handle = await window.showSaveFilePicker({ suggestedName: name });
+                    const writable = await handle.createWritable();
+                    await writable.write(blob);
+                    await writable.close();
+                    showToast("✅ Dosya başarıyla kaydedildi!");
+                    return;
+                } catch (err) {
+                    if (err.name === 'AbortError') return;
+                }
+            }
+
+            // Klasik İndirme Yöntemi (Garanti Çalışır)
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = name;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            showToast("✅ Dosya bilgisayara indirildi!");
+        }
+
+        function showToast(msg) {
+            const t = document.getElementById('toast');
+            t.innerText = msg;
+            t.classList.add('show');
+            setTimeout(() => t.classList.remove('show'), 3000);
+        }
+    </script>
+</body>
+</html>
+
